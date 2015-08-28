@@ -66,6 +66,10 @@ class Land extends CI_Controller {
 		
 		//$this->load->view('mothership');
 	}
+
+	public function horizon(){
+		$this->load->view('pa-horizon');	
+	}
 }
 
 /* End of file welcome.php */

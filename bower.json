@@ -1,0 +1,20 @@
+{
+  "name": "playAwesome",
+  "version": "0.0.0",
+  "homepage": "https://github.com/hemantrai88/playawesome",
+  "authors": [
+    "Hemant Rai <hemantrai1988@gmail.com>"
+  ],
+  "description": "Play something awesome!!!",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "materialize": "~0.95.3"
+  }
+}
