@@ -1,0 +1,23 @@
+.sideBar{
+	position: fixed;
+	background-color: teal;
+	padding: 0 5%;
+}
+
+.sideBar-mini{
+	position: fixed;
+	background-color: teal;
+	padding: 0 5%;
+}
+
+.hide-on-med-and-down{
+	visibility: visible;
+    opacity: 1;
+    transition: opacity 2s linear;
+}
+
+.hide-on-large-only{
+	visibility: visible;
+    opacity: 1;
+    transition: opacity 2s linear;	
+}
