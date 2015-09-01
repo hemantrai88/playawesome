@@ -1,0 +1,142 @@
+<div class="page-top z-depth-1">
+	<div class="container">
+		<div class="section">
+			<h5>Latest Playlist's</h5>
+		</div>
+		<div class="divider"></div>
+	</div>
+</div>
+
+<div id="list-new" class="playlist-div">
+	<div class="row">
+		<div class="col s4">
+			<div class="card">
+			    <div class="card-image waves-effect waves-block waves-light">
+			      <img class="activator" src="http://lorempixel.com/g/400/200">
+			    </div>
+			    <div class="card-content">
+			      <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+			      <p><a href="#">This is a link</a></p>
+			    </div>
+			    <div class="card-reveal">
+			      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+			      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+			    </div>
+			  </div>
+		</div>
+		<div class="col s4">
+			<div class="card">
+			    <div class="card-image waves-effect waves-block waves-light">
+			      <img class="activator" src="http://lorempixel.com/g/400/200">
+			    </div>
+			    <div class="card-content">
+			      <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+			      <p><a href="#">This is a link</a></p>
+			    </div>
+			    <div class="card-reveal">
+			      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+			      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+			    </div>
+			  </div>
+		</div>
+		<div class="col s4">
+			<div class="card">
+			    <div class="card-image waves-effect waves-block waves-light">
+			      <img class="activator" src="http://lorempixel.com/g/400/200">
+			    </div>
+			    <div class="card-content">
+			      <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+			      <p><a href="#">This is a link</a></p>
+			    </div>
+			    <div class="card-reveal">
+			      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+			      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+			    </div>
+			  </div>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col s4">
+			<div class="card">
+			    <div class="card-image waves-effect waves-block waves-light">
+			      <img class="activator" src="http://lorempixel.com/g/400/200">
+			    </div>
+			    <div class="card-content">
+			      <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+			      <p><a href="#">This is a link</a></p>
+			    </div>
+			    <div class="card-reveal">
+			      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+			      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+			    </div>
+			  </div>
+		</div>
+		<div class="col s4">
+			<div class="card">
+			    <div class="card-image waves-effect waves-block waves-light">
+			      <img class="activator" src="http://lorempixel.com/g/400/200">
+			    </div>
+			    <div class="card-content">
+			      <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+			      <p><a href="#">This is a link</a></p>
+			    </div>
+			    <div class="card-reveal">
+			      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+			      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+			    </div>
+			  </div>
+		</div>
+		<div class="col s4">
+			<div class="card">
+			    <div class="card-image waves-effect waves-block waves-light">
+			      <img class="activator" src="http://lorempixel.com/g/400/200">
+			    </div>
+			    <div class="card-content">
+			      <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+			      <p><a href="#">This is a link</a></p>
+			    </div>
+			    <div class="card-reveal">
+			      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+			      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+			    </div>
+			  </div>
+		</div>
+	</div>
+	<div id="resp-test"></div>
+	<div class="page-filler"></div>
+	
+</div>
+
+<script type="text/javascript">
+
+	var data = {
+				"request": "latest_playlists"
+				};
+	data = $.param(data);
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		url: "/playawesome/api/lists", //Relative or absolute path to response.php file
+		data: data,
+		success: function(data) {
+			console.log(data);
+			$('#resp-test').html('<h5>'+data.foo+"</h5><h5>"+data.key+"</h5>");
+		}
+	});
+
+	_.delay(function(){ 
+		var h = $('#list-new').height(); 
+		var half = h/2;
+		$('#list-new').css({ "height": h, "overflow-y": "scroll" });
+		$('.page-filler').css({ "height": half }); 
+	},3000);
+
+	$(window).resize(function(){
+		var h = $('#list-new').height(); 
+		var half = h/2;
+		$('#list-new').css({ "height": h, "overflow-y": "scroll" });
+		$('.page-filler').css({ "height": half }); 
+	});
+</script>

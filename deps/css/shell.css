@@ -1,12 +1,10 @@
-.sideBar{
+.side-bar{
 	position: fixed;
 	width: 15%;
-	background-color: teal;
 }
 
-.sideBar-mini{
+.side-bar-mini{
 	position: fixed;
-	background-color: teal;
 	padding: 0 5%;
 }
 
@@ -31,4 +29,17 @@
 
 .menu-mini-item-li{
 	color: #fff;
+}
+
+.base-card{
+	margin-top: 5%;
+	width: 99%;
+}
+
+.base-color{
+	color: #333 !important;
+}
+
+.playlist-div{
+	margin: 1% 1% 0;
 }
