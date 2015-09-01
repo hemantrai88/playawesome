@@ -25,6 +25,7 @@
 
         $('.sideBar').css('height',h);
         $('.sideBar-mini').css('height',h);
+        $('.base-card').css('height',h-30);
 
         $(window).resize(function(){
           var h = $(window).height();
@@ -32,6 +33,7 @@
 
           $('.sideBar').css('height',h);
           $('.sideBar-mini').css('height',h);
+          $('.base-card').css('height',h-30);
         });
       });
       </script>
@@ -42,17 +44,17 @@
 
   <div class="sideBar hide-on-med-and-down">
     <ul>
-      <li><i class="material-icons">search</i>Search</li>
-      <li><i class="material-icons">add</i>Add new</li>
-      <li><i class="material-icons">settings</i>Settings</li>
+      <li class="menu-item-li"><i class="material-icons menu-item-icon">search</i><span class="menu-item-label">Search</span></li>
+      <li class="menu-item-li"><i class="material-icons menu-item-icon">add</i><span class="menu-item-label">Add new</span></li>
+      <li class="menu-item-li"><i class="material-icons menu-item-icon">settings</i><span class="menu-item-label">Settings</span></li>
     </ul>
   </div>
 
   <div class="side-nav sideBar-mini hide-on-large-only">
     <ul>
-      <li><i class="material-icons">search</i></li>
-      <li><i class="material-icons">add</i></li>
-      <li><i class="material-icons">settings</i></li>
+      <li class="menu-mini-item-li"><i class="material-icons">search</i></li>
+      <li class="menu-mini-item-li"><i class="material-icons">add</i></li>
+      <li class="menu-mini-item-li"><i class="material-icons">settings</i></li>
     </ul>
   </div>
 
@@ -61,116 +63,11 @@
           &nbsp;
         </div>
         <div class="col s10 m10">
-          <div class="card blue-grey darken-1">
+          <div class="base-card card blue-grey darken-1">
             <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
             </div>
           </div>
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
+          
 
         </div>
       </div>
