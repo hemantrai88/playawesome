@@ -56,17 +56,17 @@
 						list_body += '</div';
 					}
 					$('#list-view').html(list_body);
+
+					_.delay(function(){
+						var h = $('#list-new').height(); 
+						var half = h/2;
+						$('#list-new').css({ "height": h, "overflow-y": "scroll" });
+						$('.page-filler').css({ "height": half }); 
+					},500);
 				}
 			});
 		}
 	});
-
-	_.delay(function(){ 
-		var h = $('#list-new').height(); 
-		var half = h/2;
-		$('#list-new').css({ "height": h, "overflow-y": "scroll" });
-		$('.page-filler').css({ "height": half }); 
-	},3000);
 
 	$(window).resize(function(){
 		var h = $('#list-new').height(); 
