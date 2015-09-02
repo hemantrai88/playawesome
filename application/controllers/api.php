@@ -60,39 +60,51 @@ class api extends CI_Controller {
 			case 'latest_playlists':
 				$list = array(
 					array(
+							'id' => 'abc123def456',
 							'cover' => 'http://lorempixel.com/g/400/200',
 							'title' => 'A Rocking Psychedelia',
 							'link' => 'http://google.co.in',
+							'link_text' => 'Stoneman',
 							'info' => 'A mix of pyschedelic songs that will blow your mind! Check it out!!!'
 						),
 					array(
+							'id' => 'cba321fed654',
 							'cover' => 'http://lorempixel.com/g/400/200',
 							'title' => 'Sir Mix\'a Lot',
 							'link' => 'http://google.co.in',
+							'link_text' => 'boozie',
 							'info' => 'Grove to the best mix around. Parties, hangouts, whatever... this is the shit.'
 						),
 					array(
+							'id' => 'def123ghi456',
 							'cover' => 'http://lorempixel.com/g/400/200',
 							'title' => 'Dark side of the moon',
 							'link' => 'http://google.co.in',
+							'link_text' => 'Kill-Bill',
 							'info' => 'Everything under the sun is in tune, but the sun is eclipsed by the moon.'
 						),
 					array(
+							'id' => 'fed321igh654',
 							'cover' => 'http://lorempixel.com/g/400/200',
 							'title' => 'Monkeys and Killers',
 							'link' => 'http://google.co.in',
+							'link_text' => 'Recca',
 							'info' => 'Arctic Monkeys + The Killers + similar artists = best mix ever :D'
 						),
 					array(
+							'id' => 'ghi123jkl456',
 							'cover' => 'http://lorempixel.com/g/400/200',
 							'title' => 'Let it be',
 							'link' => 'http://google.co.in',
+							'link_text' => 'Fujin',
 							'info' => 'Just listen to it. No reason required.'
 						),
 					array(
+							'id' => 'ihg321lkj654',
 							'cover' => 'http://lorempixel.com/g/400/200',
 							'title' => 'The End',
 							'link' => 'http://google.co.in',
+							'link_text' => 'Stoneman',
 							'info' => 'This is the end, beautiful friend.'
 						)
 				);
