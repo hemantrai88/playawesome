@@ -5,18 +5,18 @@
         var h = $(window).height();
 
         $('.side-bar').css('height',h);
-        $('.side-bar-mini').css('height',h);
+        $('.panel').css('height',h);
         $('.base-card').css('height',h*0.80);
 
         $(window).resize(function(){
           var h = $(window).height();
 
           $('.side-bar').css('height',h);
-          $('.side-bar-mini').css('height',h);
+          $('.panel').css('height',h);
           $('.base-card').css('height',h*0.80);
         });
 
-        var page_base = $('#page');
+        var page_base = $('#main-card');
         $.ajax({
                 url: "../templates/pa-showcase.html",
                 context: page_base
@@ -24,5 +24,29 @@
                 $( this ).addClass( "done" );
                 $( this ).html(data);
               });
+
+        $('.side-menu-button').mouseover(function(){
+            var item = '#'+this.id+'-label';
+            $('#'+this.id).css('left','0');
+            $(item).show();
+        });
+
+        var menu_items = $('.side-menu-label');
+
+        
+
+        _.each(menu_items, function(item){
+            $('#'+item.id).mouseout(function(){
+                var id = this.id;
+                var menu_item = '#'+id.replace('-label','');
+                var menu_item_label = '#'+this.id;
+
+                $(menu_item).css('left','14%');
+                $(menu_item_label).hide();
+            });
+
+        });
+
+
 
       });

@@ -7,6 +7,7 @@
       <link type="text/css" rel="stylesheet" href="../deps/css/shell.css"  media="screen,projection"/>
 
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href='https://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -21,35 +22,40 @@
 
     <body>
 
-      <div class="row">
+    <div class="row">
 
-      <div class="side-bar z-depth-2 indigo lighten-1 hide-on-med-and-down">
-        <ul>
-          <li class="menu-item-li"><i class="material-icons menu-item-icon">search</i><span class="menu-item-label">Search</span></li>
-          <li class="menu-item-li"><i class="material-icons menu-item-icon">add</i><span class="menu-item-label">Add new</span></li>
-          <li class="menu-item-li"><i class="material-icons menu-item-icon">settings</i><span class="menu-item-label">Settings</span></li>
-        </ul>
-      </div>
-
-      <div class="side-nav side-bar-mini z-depth-2 indigo lighten-1 hide-on-large-only">
-        <ul>
-          <li class="menu-mini-item-li"><i class="material-icons">search</i></li>
-          <li class="menu-mini-item-li"><i class="material-icons">add</i></li>
-          <li class="menu-mini-item-li"><i class="material-icons">settings</i></li>
-        </ul>
-      </div>
-
-      <div class="row">
-        <div class="col s2 m2">
-          &nbsp;
+      <div class="col s1 m2 l2 side-bar z-depth-5">
+        <div id="main-badge" class="row">
+          <img id="main-logo" src="../deps/images/logo/logo.svg">
         </div>
-        <div class="col s10 m10">
-          <div class="base-card card">
-            <div id="page" class="card-content base-color">
-
+        <div id="side-menu" class="row">
+          <ul>
+            <li id="lists" class="side-menu-item">
+              <span id="menu-lists-label" class="side-menu-label">Lists</span>
+              <a id="menu-lists" class="btn-floating btn-large waves-effect waves-light red side-menu-button"><i class="material-icons">add</i></a>
+            </li>
+            <li id="feed" class="side-menu-item">
+              <span id="menu-feed-label" class="side-menu-label">Feed</span>
+              <a id="menu-feed" class="btn-floating btn-large waves-effect waves-light red side-menu-button"><i class="material-icons">add</i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="col offset-s1 offset-m2 offset-l2 s11 m10 l10 panel">
+        
+        <div class="card z-depth-1 top-card-fixed">
+          <div class="card-content top-card-content">
+            <div class="top-card">
+              <h4 class="ds-ib top-card-title">Latest Rolls</h4>
             </div>
           </div>
         </div>
+
+            <div id="main-card"></div>
+
       </div>
+    </div>
+
     </body>
   </html>

@@ -1,12 +1,3 @@
-<div class="page-top z-depth-1">
-	<div class="container">
-		<div class="section">
-			<h5>List</h5>
-		</div>
-		<div class="divider"></div>
-	</div>
-</div>
-
 <div id="list-new" class="playlist-div">
 	<div id="list-view"></div>
 	<div class="page-filler"></div>
@@ -33,7 +24,7 @@
 					index++;
 
 					list_body += '<div class="col s4">';
-					list_body += '	<div class="card">';
+					list_body += '	<div class="card '+playlist.id+'">';
 			    	list_body += '		<div class="card-image waves-effect waves-block waves-light">';
 					list_body += '			<img class="activator '+playlist.id+'" src="'+playlist.cover+'">';
 			    	list_body += '		</div>';
@@ -41,7 +32,7 @@
 				    list_body += '  		<span class="card-title activator '+playlist.id+' grey-text text-darken-4">'+playlist.title+'<i class="material-icons right">more_vert</i></span>';
 				    list_body += '  		<p><a href="'+playlist.link+'"><i class="material-icons right">person_pin</i>'+playlist.link_text+'</a></p>';
 				    list_body += '		</div>';
-				    list_body += '		<div class="card-reveal">';
+				    list_body += '		<div class="card-reveal" for="'+playlist.id+'">';
 				    list_body += '  		<span class="card-title grey-text text-darken-4">'+playlist.title+'<i class="material-icons right">close</i></span>';
 				    list_body += '  		<p>'+playlist.info+'</p>';
 				    list_body += '		</div>';
@@ -57,21 +48,21 @@
 					}
 					$('#list-view').html(list_body);
 
-					_.delay(function(){
+/*					_.delay(function(){
 						var h = $('#list-new').height(); 
 						var half = h/2;
 						$('#list-new').css({ "height": h, "overflow-y": "scroll" });
 						$('.page-filler').css({ "height": half }); 
 					},500);
-				}
+*/				}
 			});
 		}
 	});
 
-	$(window).resize(function(){
+/*	$(window).resize(function(){
 		var h = $('#list-new').height(); 
 		var half = h/2;
 		$('#list-new').css({ "height": h, "overflow-y": "scroll" });
 		$('.page-filler').css({ "height": half }); 
 	});
-</script>
+*/</script>

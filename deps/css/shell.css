@@ -1,11 +1,73 @@
+body{
+	font-family: 'Ubuntu Condensed', 'Roboto', sans-serif;
+}
+
+.panel{
+		
+}
+
+.top-card-fixed{
+	position: fixed;
+	width: 81%;
+	z-index: 2;
+}
+
+.top-card{
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+}
+
+.top-card-content{
+	padding: 0 !important;
+}
+
+.top-card-icon{
+}
+
+.top-card-title{
+	vertical-align: text-bottom;
+	font-weight: 700;
+	padding-left: 2%;
+}
+
+.ds-ib{
+	display: inline-block;
+}
+
+#main-logo{
+	height: 100%;
+	width: 100%;
+}
+
 .side-bar{
 	position: fixed;
 	width: 15%;
 }
 
-.side-bar-mini{
+.side-menu-label{
+	width: 13.7%;
+	padding: 0.25em 1em;
+	font-weight: 700;
+	font-size: 2em;
+	vertical-align: text-top;
+	display: none;
 	position: fixed;
-	padding: 0 5%;
+	left: 3%;
+	background-color: #ccc;
+}
+
+.side-menu-item{
+
+}
+
+.side-menu-item:hover{
+	background-color: #ccc;
+}
+
+.side-menu-button{
+	position: fixed;
+	left: 14%;
 }
 
 .menu-item-li{
@@ -31,6 +93,14 @@
 	color: #fff;
 }
 
+#menu-feed{
+	margin-top: 5%;
+}
+
+#menu-feed-label{
+	margin-top: 5%;
+}
+
 .base-card{
 	margin-top: 5%;
 	width: 99%;
@@ -42,4 +112,8 @@
 
 .playlist-div{
 	margin: 1% 1% 0;
+}
+
+#main-card{
+	margin-top: 10%;
 }
