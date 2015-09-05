@@ -25,11 +25,21 @@
                 $( this ).html(data);
               });
 
-        $('.side-menu-button').mouseover(function(){
-            var item = '#'+this.id+'-label';
-            $('#'+this.id).css('left','0');
-            $(item).show();
-        });
+          $('.side-menu-button').mouseover(function(){
+            
+              var item = '#'+this.id+'-label';
+              var this_item = '#'+this.id;
+            _.delay(function(){
+              $(this_item).css('left','0');
+              $(item).show();
+              _.delay(function(){
+                if(!$(item).is(":hover")){
+                  $(this_item).css('left','14%');
+                  $(item).hide();
+                }
+              },500);
+            },500);
+          });
 
         var menu_items = $('.side-menu-label');
 

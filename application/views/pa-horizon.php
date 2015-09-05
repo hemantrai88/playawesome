@@ -24,19 +24,23 @@
 
     <div class="row">
 
-      <div class="col s1 m2 l2 side-bar z-depth-5">
+      <div class="col s1 m2 l2 side-bar init z-depth-5">
         <div id="main-badge" class="row">
           <img id="main-logo" src="../deps/images/logo/logo.svg">
         </div>
         <div id="side-menu" class="row">
           <ul>
             <li id="lists" class="side-menu-item">
-              <span id="menu-lists-label" class="side-menu-label">Lists</span>
-              <a id="menu-lists" class="btn-floating btn-large waves-effect waves-light red side-menu-button"><i class="material-icons">add</i></a>
+              <a href="javascript:void(0)"><span id="menu-lists-label" class="side-menu-label">Lists</span></a>
+              <a id="menu-lists" class="btn-floating btn-large waves-effect waves-light  teal darken-4 side-menu-button"><i class="material-icons">library_music</i></a>
             </li>
             <li id="feed" class="side-menu-item">
-              <span id="menu-feed-label" class="side-menu-label">Feed</span>
-              <a id="menu-feed" class="btn-floating btn-large waves-effect waves-light red side-menu-button"><i class="material-icons">add</i></a>
+              <a href="javascript:void(0)"><span id="menu-feed-label" class="side-menu-label">Feed</span></a>
+              <a id="menu-feed" class="btn-floating btn-large waves-effect waves-light  teal darken-4 side-menu-button"><i class="material-icons">library_books</i></a>
+            </li>
+            <li id="factory" class="side-menu-item">
+              <a href="javascript:void(0)"><span id="menu-factory-label" class="side-menu-label">Factory</span></a>
+              <a id="menu-factory" class="btn-floating btn-large waves-effect waves-light  teal darken-4 side-menu-button"><i class="material-icons">library_add</i></a>
             </li>
           </ul>
         </div>

@@ -54,6 +54,14 @@ body{
 	display: none;
 	position: fixed;
 	left: 3%;
+	background-color: #fff;
+	color: #333;
+	text-decoration: none;
+	@include transition-property(background-color);
+	@include transition-duration(2s);
+}
+
+.side-menu-label:hover{
 	background-color: #ccc;
 }
 
@@ -94,11 +102,19 @@ body{
 }
 
 #menu-feed{
-	margin-top: 5%;
+	margin-top: 6%;
 }
 
 #menu-feed-label{
-	margin-top: 5%;
+	margin-top: 6%;
+}
+
+#menu-factory{
+	margin-top: 12%;
+}
+
+#menu-factory-label{
+	margin-top: 12%;
 }
 
 .base-card{
