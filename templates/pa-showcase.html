@@ -13,7 +13,7 @@
 	$.ajax({
 		type: "POST",
 		dataType: "json",
-		url: "../api/lists", //Relative or absolute path to response.php file
+		url: "../api/lists", 
 		data: data,
 		success: function(data) {
 			var list_count = data.results;
@@ -48,21 +48,8 @@
 					}
 					$('#list-view').html(list_body);
 
-/*					_.delay(function(){
-						var h = $('#list-new').height(); 
-						var half = h/2;
-						$('#list-new').css({ "height": h, "overflow-y": "scroll" });
-						$('.page-filler').css({ "height": half }); 
-					},500);
-*/				}
+				}
 			});
 		}
 	});
-
-/*	$(window).resize(function(){
-		var h = $('#list-new').height(); 
-		var half = h/2;
-		$('#list-new').css({ "height": h, "overflow-y": "scroll" });
-		$('.page-filler').css({ "height": half }); 
-	});
-*/</script>
+</script>

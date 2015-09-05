@@ -1,19 +1,15 @@
       $(document).ready(function(){
-        $(".button-collapse").sideNav();
-        $(".dropdown-button").dropdown();
 
         var h = $(window).height();
 
         $('.side-bar').css('height',h);
         $('.panel').css('height',h);
-        $('.base-card').css('height',h*0.80);
 
         $(window).resize(function(){
           var h = $(window).height();
 
           $('.side-bar').css('height',h);
           $('.panel').css('height',h);
-          $('.base-card').css('height',h*0.80);
         });
 
         var page_base = $('#main-card');
@@ -22,6 +18,7 @@
                 context: page_base
               }).done(function(data) {
                 $( this ).addClass( "done" );
+                $('#working').fadeOut();
                 $( this ).html(data);
               });
 
@@ -38,7 +35,7 @@
                   $(item).hide();
                 }
               },500);
-            },500);
+            },1000);
           });
 
         var menu_items = $('.side-menu-label');
@@ -54,6 +51,38 @@
                 $(menu_item).css('left','14%');
                 $(menu_item_label).hide();
             });
+
+        });
+
+        $('#menu-factory-link, #menu-factory').click(function(){
+          $('#working').fadeIn();
+          $('#main-card').html('');
+          var page_base = $('#main-card');
+          $.ajax({
+                url: "../templates/pa-factory.html",
+                context: page_base
+          }).done(function(data) {
+                $( this ).addClass( "done" );
+                $('#working').fadeOut();
+                $( this ).html(data);
+          });
+
+
+        });
+
+        $('#menu-lists-link, #menu-lists').click(function(){
+          $('#working').fadeIn();
+          $('#main-card').html('');
+          var page_base = $('#main-card');
+          $.ajax({
+                url: "../templates/pa-showcase.html",
+                context: page_base
+          }).done(function(data) {
+                $( this ).addClass( "done" );
+                $('#working').fadeOut();
+                $( this ).html(data);
+          });
+
 
         });
 

@@ -2,8 +2,12 @@ body{
 	font-family: 'Ubuntu Condensed', 'Roboto', sans-serif;
 }
 
+#working{
+	margin: 0 !important;
+}
+
 .panel{
-		
+	background: linear-gradient(180deg, #e0f2f1 20%, #fff 80%);	
 }
 
 .top-card-fixed{
@@ -46,23 +50,19 @@ body{
 }
 
 .side-menu-label{
-	width: 13.7%;
-	padding: 0.25em 1em;
+	width: 15.7%;
+	padding: 0.25em 0;
 	font-weight: 700;
 	font-size: 2em;
 	vertical-align: text-top;
 	display: none;
 	position: fixed;
-	left: 3%;
-	background-color: #fff;
+	background-color: #009688;
 	color: #333;
 	text-decoration: none;
-	@include transition-property(background-color);
-	@include transition-duration(2s);
-}
-
-.side-menu-label:hover{
-	background-color: #ccc;
+	text-align: center;
+	border-bottom-left-radius: 1em;
+	border-top-left-radius: 1em; 
 }
 
 .side-menu-item{
@@ -117,6 +117,14 @@ body{
 	margin-top: 12%;
 }
 
+#menu-profile{
+	margin-top: 18%;
+}
+
+#menu-profile-label{
+	margin-top: 18%;
+}
+
 .base-card{
 	margin-top: 5%;
 	width: 99%;
@@ -132,4 +140,9 @@ body{
 
 #main-card{
 	margin-top: 10%;
+}
+
+#list-new{
+	width: 90%;
+	margin: auto;
 }
