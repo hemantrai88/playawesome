@@ -27,14 +27,16 @@
               var item = '#'+this.id+'-label';
               var this_item = '#'+this.id;
             _.delay(function(){
-              $(this_item).css('left','0');
-              $(item).show();
-              _.delay(function(){
-                if(!$(item).is(":hover")){
-                  $(this_item).css('left','14%');
-                  $(item).hide();
-                }
-              },500);
+              if($(item).is(":hover") || $(this_item).is(":hover")){
+                $(this_item).css('left','0');
+                $(item).show();
+                _.delay(function(){
+                  if(!$(item).is(":hover")){
+                    $(this_item).css('left','14%');
+                    $(item).hide();
+                  }
+                },500);
+              }
             },1000);
           });
 

@@ -6,6 +6,18 @@ body{
 	margin: 0 !important;
 }
 
+#logo-text{
+	font-weight: 700;
+	text-align: center;
+}
+
+#profile-img{
+	height: 8em;
+    width: 8em;
+    margin: 3% auto;
+    display: block;
+}
+
 .panel{
 	background: linear-gradient(180deg, #e0f2f1 20%, #fff 80%);	
 }
@@ -33,6 +45,10 @@ body{
 	vertical-align: text-bottom;
 	font-weight: 700;
 	padding-left: 2%;
+}
+
+.top-card-title-subtext{
+	font-size: 125%;
 }
 
 .ds-ib{
@@ -134,15 +150,41 @@ body{
 	color: #333 !important;
 }
 
-.playlist-div{
+.sub-page-div{
 	margin: 1% 1% 0;
-}
-
-#main-card{
-	margin-top: 10%;
+	padding-top: 10%;
 }
 
 #list-new{
 	width: 90%;
-	margin: auto;
+}
+
+.factory-list{
+
+}
+
+.published{
+	color: #1b5e20;
+}
+
+.draft{
+	color: #81c784;
+}
+
+.add-playlist{
+	color: #4caf50;
+}
+
+.factory-list-title{
+	font-size: 150%;
+	font-weight: 700;
+}
+
+.text-small{
+	font-size: 100% !important;
+	line-height: 25px !important;
+}
+
+.card-content p{
+	padding: 0 !important;
 }
