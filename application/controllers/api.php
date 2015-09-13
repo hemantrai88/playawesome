@@ -122,6 +122,45 @@ class api extends CI_Controller {
 
 		print_r(json_encode($list));	
 	}
+
+	public function tagList(){
+
+		$tagArr = array(
+			array('rock'=>'Rock'),
+			array('pop'=>'Pop'),
+			array('jazz'=>'Jazz'),
+			array('blues'=>'Blues'),
+			array('hiphop'=>'Hiphop'),
+			array('edm'=>'EDM'),
+			array('dance'=>'Dance'),
+			array('90\'s'=>'90\'s')
+		);
+
+		echo json_encode($tagArr);
+	}
+
+	public function tagSearch(){
+		$tagTrigger = $this->input->post('tagTrigger');
+
+		$tagArr = array(
+			'rock'=>'Rock',
+			'pop'=>'Pop',
+			'jazz'=>'Jazz',
+			'blues'=>'Blues',
+			'hiphop'=>'Hiphop',
+			'edm'=>'EDM',
+			'dance'=>'Dance',
+			'90\'s'=>'90\'s'
+		);
+
+		$tagTrigger = strtolower($tagTrigger);
+
+		if(array_key_exists($tagTrigger, $tagArr)){
+			echo $tagArr[$tagTrigger];
+		}else{
+			echo 0;
+		}
+	}
 }
 
 /* End of file welcome.php */

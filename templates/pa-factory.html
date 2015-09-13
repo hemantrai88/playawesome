@@ -13,19 +13,74 @@
 
            <ul class="factory-list collapsible collapsible-accordion" data-collapsible="accordion">
 		    <li>
-		      <div class="collapsible-header factory-list-title active"><i class="material-icons published">library_music</i>Published Lists</div>
+		      <div class="collapsible-header factory-list-title"><i class="material-icons">library_music</i>Published Lists</div>
 		      <div class="collapsible-body">
 		      	<div id="published-list">
 				</div>
 		      </div>
 		    </li>
 		    <li>
-		      <div class="collapsible-header factory-list-title"><i class="material-icons draft">library_music</i>Draft Lists</div>
+		      <div class="collapsible-header factory-list-title"><i class="material-icons">library_music</i>Draft Lists</div>
 		      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
 		    </li>
 		    <li>
-		      <div class="collapsible-header factory-list-title"><i class="material-icons add-playlist">library_music</i>Create New</div>
-		      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+		      <div class="collapsible-header factory-list-title  active"><i class="material-icons">library_music</i>Create New</div>
+		      <div class="collapsible-body">
+		      	<form>
+		      		<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">label_outline</i>
+          <input id="plName" class="plName" type="text" class="validate">
+          <label for="plName">Name it</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">description</i>
+          <textarea id="plDescription" class="plDescription materialize-textarea"></textarea>
+          <label for="plDescription">Describe it</label>
+        </div>
+      </div>
+      <div class="row">
+	    <div class="file-field input-field col s12">
+	      <input class="file-path validate cover-upload-field" type="text"/>
+	      <div class="btn cover-upload-button">
+	        <i class="material-icons prefix cover-upload-icon">airplay</i>
+	        <span class="cover-upload-label">
+	        	Upload cover
+	        </span>
+	        <input type="file" class="cover-image-file" />
+	      </div>
+	    </div>
+	  </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">label_outline</i>
+          <input id="plTagTrigger" class="plTagTrigger" type="text" class="validate">
+          <label for="plTagTrigger">Tag it</label>
+        </div>
+      </div>
+      <div class="row">
+		<div class="col offset-s1 s5">      	
+	        <div class="collection">
+	        <a href="#!" class="collection-item">Alvin</a>
+	      </div>
+	    </div>  
+	    <div class="col s5">
+	    	<div style="background-color: red;">
+	    		
+	    	</div>
+	    </div>
+      </div>
+    <div class="row"></div>
+
+    </form>
+  </div>
+		      		
+		      	</form>
+		      </div>
 		    </li>
 		  </ul>
 
@@ -58,15 +113,11 @@
 					list_body += '<div class="col s3">';
 					list_body += '	<div class="card '+playlist.id+'">';
 			    	list_body += '		<div class="card-image waves-effect waves-block waves-light">';
-					list_body += '			<img class="activator '+playlist.id+'" src="'+playlist.cover+'">';
+					list_body += '			<img class="'+playlist.id+'" src="'+playlist.cover+'">';
 			    	list_body += '		</div>';
 				    list_body += '		<div class="card-content text-small">';
-				    list_body += '  		<span class="card-title activator '+playlist.id+' grey-text text-darken-4 text-small">'+playlist.title+'<i class="material-icons right">more_vert</i></span>';
-				    list_body += '  		<p><a href="'+playlist.link+'"><i class="material-icons right">person_pin</i>'+playlist.link_text+'</a></p>';
-				    list_body += '		</div>';
-				    list_body += '		<div class="card-reveal text-small" for="'+playlist.id+'">';
-				    list_body += '  		<span class="card-title grey-text text-darken-4">'+playlist.title+'<i class="material-icons right">close</i></span>';
-				    list_body += '  		<p>'+playlist.info+'</p>';
+				    list_body += '  		<div class="center-align"><span class="card-title '+playlist.id+' grey-text text-darken-4 text-small font-125">'+playlist.title+'</span></div>';
+				    list_body += '  		<div class="center-align"><p><a href="'+playlist.link+'"><i class="material-icons top-align no-margin-right">perm_identity</i>'+playlist.link_text+'</a></p></div>';
 				    list_body += '		</div>';
 			  		list_body += '	</div>';
 					list_body += '</div>';
@@ -83,6 +134,38 @@
 				}
 			});
 		}
+	});
+
+	$('#plTagTrigger').keyup(function(){
+
+		var tagTrigger = $('#plTagTrigger').val();
+		
+		var tagObj = {};
+
+		tagObj.tagTrigger = tagTrigger;
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: "../api/tagSearch", 
+			data: tagObj,
+			success: function(data) {
+			}
+		});
+	});
+
+	$(document).ready(function(){
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: "../api/tagList", 
+			success: function(data) {
+				_.each(data, function(d){
+					var o = Object.keys(d);
+					var v = Object.value(d);
+					console.log(d.o);
+				});
+			}
+		});
 	});
 
 </script>

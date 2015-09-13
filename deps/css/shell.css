@@ -1,5 +1,6 @@
 body{
 	font-family: 'Ubuntu Condensed', 'Roboto', sans-serif;
+	color: #333;
 }
 
 #working{
@@ -151,7 +152,7 @@ body{
 }
 
 .sub-page-div{
-	margin: 1% 1% 0;
+	margin: -1% 1% 0;
 	padding-top: 10%;
 }
 
@@ -187,4 +188,55 @@ body{
 
 .card-content p{
 	padding: 0 !important;
+}
+
+.no-margin-right{
+	margin-right: 0 !important;
+}
+
+.center-align{
+	text-align: center;
+}
+
+.top-align{
+	vertical-align: top;
+}
+
+.font-125{
+	font-size: 125% !important;
+}
+
+.font-150{
+	font-size: 150% !important;	
+}
+
+.cover-image-file{
+	margin-left: 30%;
+}
+
+.cover-upload-field{
+	margin-left: 5% !important;
+    width: 95.1% !important;
+}
+
+.cover-upload-icon{
+	margin-left: -30%;
+	color: #333;
+}
+
+.cover-upload-button{
+	width: 20%;
+	box-shadow: none;
+	background-color: #fff;
+}
+
+.cover-upload-button:hover > span{
+	color: #333;
+}
+
+.cover-upload-label{
+	color: #9e9e9e;
+    cursor: text;
+    font-size: 1rem;
+    text-transform: none;
 }
