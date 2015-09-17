@@ -215,8 +215,6 @@ body{
 }
 
 .cover-upload-field{
-	margin-left: 5% !important;
-    width: 95.1% !important;
 }
 
 .cover-upload-icon{
@@ -225,9 +223,7 @@ body{
 }
 
 .cover-upload-button{
-	width: 20%;
 	box-shadow: none;
-	background-color: #fff;
 }
 
 .cover-upload-button:hover > span{
@@ -239,4 +235,71 @@ body{
     cursor: text;
     font-size: 1rem;
     text-transform: none;
+}
+
+.tag-list{
+    position: absolute;
+    left: 15%;
+    top: 15%;
+}
+
+.file-path{
+	width: 98% !important;
+}
+
+.collection a.collection-item{
+	width: 10%;
+    float: left;
+}
+
+.item-not-found{
+	width: 50% !important;
+}
+
+.input-field label {
+    color: #333;
+}
+
+.plItemDone{
+    position: absolute;
+    left: 85%;
+    margin-top: 2%;
+    color: green;
+}
+
+.plDone{
+	display: none;
+}
+
+.desc-done{
+	margin-top: 5% !important;
+}
+
+.cover-done{
+	margin-top: 1% !important;
+}
+.collection .collection-item:last-child{
+	border-bottom: 1px solid #e0e0e0 !important;
+}
+
+#coverUploadProgress{
+	display: none;
+}
+
+.coverField{
+	margin-left: 1.5% !important;
+}
+
+.coverPreIcon{
+	height: 2em !important;
+    width: 100% !important;
+}
+
+.coverPathWrapper{
+    width: 96.5% !important;
+    margin-left: 4% !important;
+}
+
+.coverLabel{
+	margin-left: 4%;
 }

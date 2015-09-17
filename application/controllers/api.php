@@ -126,42 +126,89 @@ class api extends CI_Controller {
 	public function tagList(){
 
 		$tagArr = array(
-			array('rock'=>'Rock'),
-			array('pop'=>'Pop'),
-			array('jazz'=>'Jazz'),
-			array('blues'=>'Blues'),
-			array('hiphop'=>'Hiphop'),
-			array('edm'=>'EDM'),
-			array('dance'=>'Dance'),
-			array('90\'s'=>'90\'s')
+			array('id'=>'rock', 'tag'=>'Rock'),
+			array('id'=>'pop', 'tag'=>'Pop'),
+			array('id'=>'jazz', 'tag'=>'Jazz'),
+			array('id'=>'blues', 'tag'=>'Blues'),
+			array('id'=>'hiphop', 'tag'=>'Hiphop'),
+			array('id'=>'edm', 'tag'=>'EDM'),
+			array('id'=>'dance', 'tag'=>'Dance'),
+			array('id'=>'90\'s', 'tag'=>'90\'s'),
+			array('id'=>'rap', 'tag'=>'Rap')
 		);
+
 
 		echo json_encode($tagArr);
 	}
 
 	public function tagSearch(){
 		$tagTrigger = $this->input->post('tagTrigger');
+		$found = false;
+		$matches = array();
 
 		$tagArr = array(
-			'rock'=>'Rock',
-			'pop'=>'Pop',
-			'jazz'=>'Jazz',
-			'blues'=>'Blues',
-			'hiphop'=>'Hiphop',
-			'edm'=>'EDM',
-			'dance'=>'Dance',
-			'90\'s'=>'90\'s'
+			array('id'=>'rock', 'tag'=>'Rock'),
+			array('id'=>'pop', 'tag'=>'Pop'),
+			array('id'=>'jazz', 'tag'=>'Jazz'),
+			array('id'=>'blues', 'tag'=>'Blues'),
+			array('id'=>'hiphop', 'tag'=>'Hiphop'),
+			array('id'=>'edm', 'tag'=>'EDM'),
+			array('id'=>'dance', 'tag'=>'Dance'),
+			array('id'=>'90\'s', 'tag'=>'90\'s'),
+			array('id'=>'rap', 'tag'=>'Rap')
 		);
 
 		$tagTrigger = strtolower($tagTrigger);
-
-		if(array_key_exists($tagTrigger, $tagArr)){
-			echo $tagArr[$tagTrigger];
+		$tagLength = strlen($tagTrigger);
+		foreach ($tagArr as $id => $tag) {
+			if(substr($tag['id'], 0, $tagLength)===$tagTrigger){
+				$matches[] = array('id'=>$tag['id'],'tag'=>$tag['tag']);
+				$found = true;
+			}
+		}
+		if($found){
+			echo json_encode($matches);
 		}else{
 			echo 0;
 		}
+		}
+
+		public function uploadCover(){
+			// You need to add server side validation and better error handling here
+
+			$data = array();
+			if(isset($_FILES))
+			{  
+			    $error = false;
+			    $files = array();
+
+			    $uploaddir = '/opt/lampp/htdocs/playawesome/uploads/';
+			    foreach($_FILES as $file)
+			    {
+			    	$fileNameArr = explode('.', $file['name']);
+			    	$c = count($fileNameArr);
+			    	$fileType = $fileNameArr[$c-1];
+			    	$coverName = mt_rand(1,99).time().mt_rand(1,99).".".$fileType;
+
+			        if(move_uploaded_file($file['tmp_name'], $uploaddir .basename($coverName)))
+			        {
+			            $files[] = $coverName;
+			        }
+			        else
+			        {
+			            $error = true;
+			        }
+			    }
+			    $data = ($error) ? array('error' => 'There was an error uploading your files') : array('files' => $files);
+			}
+			else
+			{
+			    $data = array('success' => 'Form was submitted', 'formData' => $_POST);
+			}
+
+			echo json_encode($data);
+		}
 	}
-}
 
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */

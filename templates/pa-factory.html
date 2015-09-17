@@ -26,60 +26,70 @@
 		    <li>
 		      <div class="collapsible-header factory-list-title  active"><i class="material-icons">library_music</i>Create New</div>
 		      <div class="collapsible-body">
-		      	<form>
-		      		<div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">label_outline</i>
-          <input id="plName" class="plName" type="text" class="validate">
-          <label for="plName">Name it</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">description</i>
-          <textarea id="plDescription" class="plDescription materialize-textarea"></textarea>
-          <label for="plDescription">Describe it</label>
-        </div>
-      </div>
-      <div class="row">
-	    <div class="file-field input-field col s12">
-	      <input class="file-path validate cover-upload-field" type="text"/>
-	      <div class="btn cover-upload-button">
-	        <i class="material-icons prefix cover-upload-icon">airplay</i>
-	        <span class="cover-upload-label">
-	        	Upload cover
-	        </span>
-	        <input type="file" class="cover-image-file" />
-	      </div>
-	    </div>
-	  </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">label_outline</i>
-          <input id="plTagTrigger" class="plTagTrigger" type="text" class="validate">
-          <label for="plTagTrigger">Tag it</label>
-        </div>
-      </div>
-      <div class="row">
-		<div class="col offset-s1 s5">      	
-	        <div class="collection">
-	        <a href="#!" class="collection-item">Alvin</a>
-	      </div>
-	    </div>  
-	    <div class="col s5">
-	    	<div style="background-color: red;">
-	    		
-	    	</div>
-	    </div>
-      </div>
-    <div class="row"></div>
+		      	<div class="row">
+				    <form id="plForm" class="col s12">
+				      <div class="row">
+				      	<div id="plNameDone" class="plDone"> <i class="material-icons plItemDone">done</i> </div>
+				        <div class="input-field col s12">
+				          <i class="material-icons prefix">album</i>
+				          <input id="plName" class="plName" type="text" class="validate">
+				          <label for="plName">Name it</label>
+				        </div>
+				      </div>
+				      <div class="row">
+				      <div id="plDescriptionDone" class="plDone"> <i class="material-icons plItemDone desc-done">done</i> </div>
+				        <div class="input-field col s12">
+				          <i class="material-icons prefix">description</i>
+				          <textarea id="plDescription" class="plDescription materialize-textarea"></textarea>
+				          <label for="plDescription">Describe it</label>
+				        </div>
+				      </div>
+				      <div class="row">
+				        <div id="coverUploadProgress" class="progress">
+					      <div class="indeterminate"></div>
+					    </div>
+				      	<div id="plCoverDone" class="plDone"> <i class="material-icons plItemDone cover-done">done</i> </div>
+					    <div class="file-field input-field coverField">
+					      <i class="material-icons prefix coverPreIcon">
+					        airplay
+					        <input type="file" id="plCover">
+					        <input type="hidden" id="plCoverPath" name="plCoverPath" >
+					      </i>
+					      <div class="file-path-wrapper coverPathWrapper">
+					        <input id="coverPathDisplay" class="file-path validate" type="text">
+					        <label class="coverLabel" for="coverPathDisplay">Upload cover</label>
+					      </div>
+					    </div>
+					  </div>
+				      <div class="row">
+				      	<div id="plTagsDone" class="plDone"> <i class="material-icons plItemDone">done</i> </div>
+				        <div class="input-field col s12">
+				          <div id="plTags" class="tag-list"></div>
+				          <i class="material-icons prefix">label_outline</i>
+				          <input id="plTagTrigger" class="plTagTrigger" type="text" class="validate">
+				          <label for="plTagTrigger">Tag it</label>
+				        </div>
+				      </div>
+				      <div class="row">
+						<div class="col offset-s1 s10">      	
+					        <div id="tagList" class="collection">
+					        <a href="#!" class="collection-item"></a>
+					      </div>
+					    </div>  
+				      </div>
+				    <div class="row"></div>
 
-    </form>
-  </div>
+				    <div class="row">
+				    	<div class="col offset-s4 s4">
+				    		<button class="btn waves-effect waves-light" type="submit" id="savePL">Roll it
+						    	<i class="material-icons right">send</i>
+						  	</button>
+				    	</div>
+				    </div>
+
+				    </form>
+				</div>
 		      		
-		      	</form>
 		      </div>
 		    </li>
 		  </ul>
@@ -92,6 +102,9 @@
 	$('.collapsible').collapsible({
       accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
+
+    var plTagsList = [];
+    var validCover = false;
 
 	var data = {
 				"request": "latest_playlists"
@@ -138,8 +151,18 @@
 
 	$('#plTagTrigger').keyup(function(){
 
+		var tagHTML = '';
 		var tagTrigger = $('#plTagTrigger').val();
-		
+		if(tagTrigger.length>=0 && tagTrigger.length<=7){
+			$('#plTags').css('left','15%');
+		}else if(tagTrigger.length>=8 && tagTrigger.length<=15){
+			$('#plTags').css('left','25%');
+		}else if(tagTrigger.length>=16 && tagTrigger.length<=26){
+			$('#plTags').css('left','35%');
+		}else if(tagTrigger.length>=27 && tagTrigger.length<=35){
+			$('#plTags').css('left','45%');
+		}
+
 		var tagObj = {};
 
 		tagObj.tagTrigger = tagTrigger;
@@ -149,23 +172,163 @@
 			url: "../api/tagSearch", 
 			data: tagObj,
 			success: function(data) {
+				if(data==0){
+					tagHTML = '<a href="#!" data-tag="" class="collection-item item-not-found">No tags found</a>';
+				}else{
+					_.each(data, function(d){
+						tagHTML += '<a href="#!" data-id="'+d.id+'" data-tag="'+d.tag+'" class="collection-item tagMatch">'+d.tag+'</a>';
+					});
+				}
+				$('#tagList').html(tagHTML);
 			}
 		});
+
 	});
 
 	$(document).ready(function(){
+
+		$('body').on("click", "i.removeTag", function(){
+			var tagToRemove = _.indexOf(plTagsList, $(this).attr('data-id'));
+			plTagsList.splice(tagToRemove, 1);
+			if(plTagsList.length>=3){
+				$('#plTagsDone').fadeIn();
+			}else{
+				$('#plTagsDone').fadeOut();
+			}
+		});
+
+		$('body').on("click", "a.tagMatch", function(){
+			if(plTagsList.length<5){
+				var id = $(this).attr('data-id');
+				var tag = $(this).attr('data-tag');
+
+				if(_.indexOf(plTagsList, id) === -1){
+					plTagsList.push(id);
+					var addTag = '<div class="chip '+id+'">'+tag+'<i class="material-icons removeTag" data-id="'+id+'">close</i></div>';
+					$('#plTags').append(addTag);
+					if(plTagsList.length>=3){
+						$('#plTagsDone').fadeIn();
+					}else{
+						$('#plTagsDone').fadeOut();
+					}
+				}
+			}
+		});
+
+		$('body').on("click", "#savePL", function(e){
+			alert('Rolling');
+			e.preventDefault();
+		});
+
+		$('#plName').bind('input propertychange', function() {
+			if($(this).val().length>=5){
+				$('#plNameDone').fadeIn();
+			}else{
+				$('#plNameDone').fadeOut();
+			}
+		});
+
+		$('#plDescription').bind('input propertychange', function() {
+			if($(this).val().length>=50){
+				$('#plDescriptionDone').fadeIn();
+			}else{
+				$('#plDescriptionDone').fadeOut();
+			}
+		});
+
+		var tagHTML = '';
 		$.ajax({
 			type: "POST",
 			dataType: "json",
 			url: "../api/tagList", 
 			success: function(data) {
 				_.each(data, function(d){
-					var o = Object.keys(d);
-					var v = Object.value(d);
-					console.log(d.o);
+					tagHTML += '<a href="#!" data-id="'+d.id+'" data-tag="'+d.tag+'" class="collection-item tagMatch">'+d.tag+'</a>';
 				});
+				$('#tagList').html(tagHTML);
 			}
 		});
-	});
 
+		$(':file').change(function(){
+		    var file = this.files[0];
+		    var name = file.name;
+		    var size = file.size;
+		    var type = file.type;
+		    var typeArr = type.split('/');
+		    
+		    //Your validation
+
+		    if(typeArr[0]==='image' && size < 2000000){
+		    	validCover = true;
+		    }else{
+		    	validCover = false;
+		    }
+
+		});
+
+	$('input[type=file]').on('change', uploadFiles);
+
+});
+
+function uploadFiles(event)
+{
+	if(validCover){
+
+	    $('#coverUploadProgress').fadeIn();
+
+	    var files = event.target.files;
+
+	    var data = new FormData();
+	    $.each(files, function(key, value)
+	    {
+	        data.append(key, value);
+	    });
+
+	    $.ajax({
+	        url: '../api/uploadCover',
+	        type: 'POST',
+	        data: data,
+	        cache: false,
+	        dataType: 'json',
+	        processData: false,
+	        contentType: false,
+	        success: function(data, textStatus, jqXHR)
+	        {
+	            if(typeof data.error === 'undefined')
+	            {
+	                // Success
+	                linkCoverImage(event, data);
+	            }
+	            else
+	            {
+	                // Error
+	                console.log('ERROR: ' + data.error);
+	            }
+	        },
+	        error: function(jqXHR, textStatus, errorThrown)
+	        {
+	            // Error
+	            console.log('Errors: ' + textStatus);
+	            
+	        }
+	    });
+	    $('#coverUploadProgress').fadeOut();
+	    $('#plCoverDone').fadeIn();
+	    $('.coverPreIcon').css('color','#4db6ac');
+	}else{
+		event.stopPropagation(); // Stop stuff happening
+	    event.preventDefault(); // Totally stop stuff happening
+	    Materialize.toast('Please upload a valid cover image', 4000, 'teal lighten-2');
+	    $('#plCoverDone').fadeOut();
+	    $('#plCover').val('');
+	    $('.file-path').val('');
+	    $('#plCoverPath').val('');
+	    $('.coverPreIcon').css('color','#333');
+	}
+}
+
+function linkCoverImage(event, data){
+	
+	$('#plCoverPath').val(data.files[0]);
+}
 </script>

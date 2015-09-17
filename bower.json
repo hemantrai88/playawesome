@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "materialize": "~0.95.3",
+    "materialize": "~0.97.1",
     "underscore": "~1.8.3"
   }
 }
