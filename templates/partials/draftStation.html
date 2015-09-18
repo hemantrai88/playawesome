@@ -1,0 +1,97 @@
+<div class="row stationRow">
+        <div class="col s12 m12">
+          <div class="card">
+            <div class="card-content">
+              <div class="stationInfo row">
+                <div class="stationPlName col s9">
+                  <div class="stationPlNameSpan">
+                    
+                  </div>
+                </div>
+                <div class="stationPlCreated col s3">
+                    <div class="stationPlCreatedStamp ds-ib stationStamp"></div>
+                </div>
+              </div>
+              <div class="row stationPlTagsRow">
+                <div class="col s12 stationPlTagsDiv">
+                  
+                </div>
+                
+              </div>
+            </div>
+            <div class="card-action">
+              <a href="#">Save List</a>
+              <a href="#">Save List and Publish</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+
+        var plID = $('body .__activeStation').attr('data-plid');
+
+        var dataObj = {};
+        var tags = [];
+        var tagHTML = '';
+
+        dataObj.plID = plID;
+
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "../api/getPlaylist", 
+          data: dataObj,
+          success: function(data) {
+            console.log(data);
+            var createdTS = data.plCreatedAt;
+            var date_time = createdTS.split(' ');
+            var dateTS = date_time[0];
+            var timeTS = date_time[1];
+            
+            var dmy = dateTS.split('-');
+            var y = dmy[0];
+            var m = dmy[1]-1;
+            var d = dmy[2];
+
+            var hms = timeTS.split(':');
+            var h = hms[0];
+            var mi = hms[1];
+            var s = hms[2];
+
+            var createdAt = new Date(y, m, d, h, m, s);
+            var stamp = moment(createdAt).fromNow();
+            $('.stationPlCreatedStamp').html(stamp);
+
+            var plLabel = data.plName;
+            $('.stationPlNameSpan').html(plLabel);
+            $('.stationPlNameText').val(data.plName);
+
+            if(data.tag1){
+              tags.push(data.tag1);  
+            }
+            if(data.tag2){
+              tags.push(data.tag2);  
+            }
+            if(data.tag3){
+              tags.push(data.tag3);  
+            }
+            if(data.tag4){
+              tags.push(data.tag4);  
+            }
+            if(data.tag5){
+              tags.push(data.tag5);  
+            }
+
+            _.each(tags, function(tag){
+              tagHTML += '<a href="#!" data-tag="'+tag+'" class="collection-item tagMatch">'+tag+'</a>';
+            });
+            
+            $('.stationPlTagsDiv').html(tagHTML);
+
+
+          }
+        });
+
+
+      </script> 
