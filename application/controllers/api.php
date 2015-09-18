@@ -2,6 +2,13 @@
 
 class api extends CI_Controller {
 
+	function __construct(){
+
+		parent::__construct();
+
+		$this->load->model('mdlAPI');
+	}
+
 	public function index()
 	{
 		set_include_path(get_include_path() . PATH_SEPARATOR . '/opt/lampp/htdocs/app/google-client/src');
@@ -55,6 +62,8 @@ class api extends CI_Controller {
 	public function lists(){
 
 		$request = $this->input->post('request');
+
+		$list = array();
 
 		switch ($request) {
 			case 'latest_playlists':
@@ -112,6 +121,27 @@ class api extends CI_Controller {
 				$list['results'] = count($list);
 
 				break;
+
+			case 'draft_playlists':
+
+				$draftPlaylists = $this->mdlAPI->draftPlaylists();
+
+				foreach ($draftPlaylists as $playlist) {
+
+					$list[] = array(
+								'id' => $playlist['plID'],
+								'cover' => $playlist['plCover'],
+								'title' => $playlist['plName'],
+								'link' => 'http://hemant/playawesome/land/horizon#!',
+								'link_text' => $playlist['fName']." ".$playlist['lName'],
+								'info' => $playlist['plDescription']
+						);
+				}
+
+				$list['results'] = count($list);
+
+				break;
+
 			
 			default:
 				$list = array();
@@ -125,20 +155,16 @@ class api extends CI_Controller {
 
 	public function tagList(){
 
-		$tagArr = array(
-			array('id'=>'rock', 'tag'=>'Rock'),
-			array('id'=>'pop', 'tag'=>'Pop'),
-			array('id'=>'jazz', 'tag'=>'Jazz'),
-			array('id'=>'blues', 'tag'=>'Blues'),
-			array('id'=>'hiphop', 'tag'=>'Hiphop'),
-			array('id'=>'edm', 'tag'=>'EDM'),
-			array('id'=>'dance', 'tag'=>'Dance'),
-			array('id'=>'90\'s', 'tag'=>'90\'s'),
-			array('id'=>'rap', 'tag'=>'Rap')
-		);
+		$tags = $this->mdlAPI->tagList();
+		$tagArr = array();
 
+		foreach ($tags as $id=>$tag) {
+			$tagArr[]=array('id'=>$id, 'tag'=>$tag);
+		}
 
 		echo json_encode($tagArr);
+
+
 	}
 
 	public function tagSearch(){
@@ -146,22 +172,17 @@ class api extends CI_Controller {
 		$found = false;
 		$matches = array();
 
-		$tagArr = array(
-			array('id'=>'rock', 'tag'=>'Rock'),
-			array('id'=>'pop', 'tag'=>'Pop'),
-			array('id'=>'jazz', 'tag'=>'Jazz'),
-			array('id'=>'blues', 'tag'=>'Blues'),
-			array('id'=>'hiphop', 'tag'=>'Hiphop'),
-			array('id'=>'edm', 'tag'=>'EDM'),
-			array('id'=>'dance', 'tag'=>'Dance'),
-			array('id'=>'90\'s', 'tag'=>'90\'s'),
-			array('id'=>'rap', 'tag'=>'Rap')
-		);
+		$tags = $this->mdlAPI->tagList();
+		$tagArr = array();
+
+		foreach ($tags as $id=>$tag) {
+			$tagArr[]=array('id'=>$id, 'tag'=>$tag);
+		}
 
 		$tagTrigger = strtolower($tagTrigger);
 		$tagLength = strlen($tagTrigger);
 		foreach ($tagArr as $id => $tag) {
-			if(substr($tag['id'], 0, $tagLength)===$tagTrigger){
+			if(strtolower(substr($tag['tag'], 0, $tagLength))===strtolower($tagTrigger)){
 				$matches[] = array('id'=>$tag['id'],'tag'=>$tag['tag']);
 				$found = true;
 			}
@@ -182,7 +203,7 @@ class api extends CI_Controller {
 			    $error = false;
 			    $files = array();
 
-			    $uploaddir = '/opt/lampp/htdocs/playawesome/uploads/';
+			    $uploaddir = '/opt/lampp/htdocs/playawesome/assets/covers/';
 			    foreach($_FILES as $file)
 			    {
 			    	$fileNameArr = explode('.', $file['name']);
@@ -207,6 +228,23 @@ class api extends CI_Controller {
 			}
 
 			echo json_encode($data);
+		}
+
+		public function factoryRoller(){
+
+			$plName = $this->input->post('plName');
+			$plDescription = $this->input->post('plDescription');
+			$plCover = $this->input->post('plCover');
+			$plTags = $this->input->post('plTags');
+
+			echo $this->mdlAPI->rollIt($plName, $plDescription, $plCover, $plTags);
+		}
+
+		public function getPlaylist(){
+
+			$plID = $this->input->post('plID');
+
+			echo $this->mdlAPI->getPlaylist($plID);
 		}
 	}
 

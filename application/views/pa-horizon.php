@@ -16,6 +16,7 @@
       <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
       <script type="text/javascript" src="../bower_components/materialize/dist/js/materialize.min.js"></script>
       <script type="text/javascript" src="../bower_components/underscore/underscore-min.js"></script>
+      <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
       <script type="text/javascript" src="../deps/js/script.js"></script>
 
     </head>
