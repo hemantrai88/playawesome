@@ -78,8 +78,8 @@ class mdlapi extends CI_Model {
 		$rollArr['plStatus'] = $plStatus;
 		$rollArr['plOwner'] = $plOwner;
 		$rollArr['plOrigin'] = $plOrigin;
-		$rollArr['plCreatedAt'] = date('Y-m-d h:i:s a');
-		$rollArr['plLastEdited'] = date('Y-m-d h:i:s a');
+		$rollArr['plCreatedAt'] = date('Y-m-d h:i:s');
+		$rollArr['plLastEdited'] = date('Y-m-d h:i:s');
 
 		$this->db->insert('playlistsDB', $rollArr);
 

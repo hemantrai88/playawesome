@@ -5,12 +5,20 @@
     var plTagsList = [];
     var validCover = false;
     var tags;
-    var stationBusy = false;
+
+    var activePlID = 0;
+
+    __global.stationBusy = false;
 
 	var data = {
 				"request": "latest_playlists"
 				};
-	data = $.param(data);
+
+	var baseDiv = '#published-list';
+
+	getList(data, baseDiv);
+
+	/*data = $.param(data);
 	$.ajax({
 		type: "POST",
 		dataType: "json",
@@ -48,54 +56,15 @@
 				}
 			});
 		}
-	});
+	});*/
 
 	var data = {
 				"request": "draft_playlists"
 				};
-	data = $.param(data);
-	$.ajax({
-		type: "POST",
-		dataType: "json",
-		url: "../api/lists", 
-		data: data,
-		success: function(data) {
-			var list_count = data.results;
+	var baseDiv = '#draft-list';
 
-			var list_body = '<div class="row">';
-			_.each(data, function(playlist, index){
-				if(_.isObject(playlist)){
-					index++;
+	getList(data, baseDiv);
 
-					list_body += '<div data-plid="'+playlist.id+'" class="wrapper-card col s3">';
-					list_body += ' <div class="thumb-card col s12">';
-					list_body += '	<div class="card '+playlist.id+'">';
-			    	list_body += '		<div class="card-image waves-effect waves-block waves-light">';
-					list_body += '			<img class="'+playlist.id+'" src="http://hemant/playawesome/assets/covers/'+playlist.cover+'" width="200px" height="120px">';
-			    	list_body += '		</div>';
-				    list_body += '		<div class="card-content text-small">';
-				    list_body += '  		<div class="center-align"><span class="card-title '+playlist.id+' grey-text text-darken-4 text-small font-125">'+playlist.title+'</span></div>';
-				    list_body += '  		<div class="center-align"><p><a href="'+playlist.link+'"><i class="material-icons top-align no-margin-right">perm_identity</i>'+playlist.link_text+'</a></p></div>';
-				    list_body += '		</div>';
-			  		list_body += '	</div>';
-					list_body += ' </div>';
-					list_body += ' <div class="plStation col s9" style="display:none;">';
-					list_body += ' </div>';
-					list_body += '</div>';
-
-					if(index%4==0 && index !== list_count){
-						list_body += '</div> <div class="row">'
-					}else if(index%4==0 && index === list_count){
-						list_body += '</div> <div class="row">'
-					}else if(index === list_count){
-						list_body += '</div';
-					}
-					$('#draft-list').html(list_body);
-
-				}
-			});
-		}
-	});
 
 	$('#plTagTrigger').keyup(function(){
 
@@ -130,6 +99,19 @@
 	});
 
 	$(document).ready(function(){
+
+		$('body').on("click", "#addPl", function(){
+			$('#addPlDiv').show();
+			$('body').find('.active').removeClass('active');
+			$('.factory-floor').hide();
+			$('#factoryAddPlLi').show();
+			$('#addPlDiv').addClass('active');
+			$('#addPl').hide();
+			$('#cancelPL').show();
+			$('.collapsible').collapsible({
+		      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+		    });
+		});
 
 		$('body').on("click", "i.removeTag", function(){
 			var tagToRemove = _.indexOf(plTagsList, $(this).attr('data-id'));
@@ -185,6 +167,8 @@
 
 			if(validateFactory()){
 
+				$('#savePL').attr('disabled','true');
+
 				plRoll = {};
 
 				plRoll.plName = plName;
@@ -198,32 +182,80 @@
 					url: "../api/factoryRoller", 
 					data: plRoll,
 					success: function(data) {
-						console.log(data);
-						Materialize.toast('Playlist has been saved', 4000, 'green lighten-2');		
+
+						activePlID = data;
+
+						$('#plName').val('');
+						$('#plNameDone').fadeOut();
+						$('#plDescription').val('');
+						$('#plDescriptionDone').fadeOut();
+						$('#plCoverPath').val('');
+						$('#coverPathDisplay').val('');
+						$('#plCoverDone').fadeOut();
+						plTagsList = [];
+						$('#plTags').html('');
+						$('#plTagsDone').fadeOut();
+
+						$('#addPlDiv').removeClass('active');
+						$('.factory-floor').show();
+						$('#factoryAddPlLi').hide();
+						$('#addPl').show();
+						$('#cancelPL').hide();
+
+
+						var data = {
+									"request": "draft_playlists"
+									};
+						var baseDiv = '#draft-list';
+
+						getList(data, baseDiv);
+						
+						$('#factoryDraftList').addClass('active');
+						$('.collapsible').collapsible({
+					      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+					    });
+
+						$('#savePL').removeAttr('disabled');
+						Materialize.toast('<i class="material-icons">done_all</i>Playlist has been saved', 4000, 'green lighten-2');		
 					}
 				});
 
 
 			}else{
-				Materialize.toast('Fill out all required fields', 4000, 'red accent-2');	
+				Materialize.toast('<i class="material-icons">error_outline</i>Fill out all required fields', 4000, 'red accent-2');	
 			}
 			e.preventDefault();
 		});
 
-		$('body').on("click",".wrapper-card", function(){
+		$('body').on('click', '#cancelPL', function(){
+			$('#addPlDiv').removeClass('active');
+			$('.factory-floor').show();
+			$('#factoryAddPlLi').hide();
+			$('#addPl').show();
+			$('#cancelPL').hide();
+			$('.collapsible').collapsible({
+		      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+		    });
+		});
 
-			if(!stationBusy){
+		$('body').on("click",".wrapper-card", function(){
+			if(!__global.stationBusy){
 
 				var plID = $(this).attr('data-plid');
 			
 				$(this).removeClass('s3');
 				$(this).addClass('s12');
+				$(this).addClass('__activeWrapper');
+				$(this).removeClass('wrapper-card');
 
+				$('.wrapper-card').addClass('__inactiveStation');
+				$(this).removeClass('__inactiveStation');
 				$(this).addClass('__activeStation');
 				$(this).addClass(plID);
 
 				$(this).find('.thumb-card').removeClass('s12');
 				$(this).find('.thumb-card').addClass('s3');
+				$(this).find('.thumb-card').addClass('__activethumb');
 
 				$(this).find('.plStation').show();
 
@@ -236,7 +268,7 @@
 		                $( this ).addClass( "done" );
 		                $( this ).html(data);
 		                $( this ).append('<input type="hidden" class="__plID" data-plid="'+plID+'">');
-		                stationBusy = true;
+		                __global.stationBusy = true;
 		              });
 		    }
 		});
@@ -281,7 +313,6 @@
 		    var size = file.size;
 		    var type = file.type;
 		    var typeArr = type.split('/');
-		    
 		    //Your validation
 
 		    if(typeArr[0]==='image' && size < 2000000){
@@ -345,7 +376,7 @@ function uploadFiles(event)
 	}else{
 		event.stopPropagation(); // Stop stuff happening
 	    event.preventDefault(); // Totally stop stuff happening
-	    Materialize.toast('Please upload a valid cover image', 4000, 'red accent-2');
+	    Materialize.toast('<i class="material-icons">error_outline</i>Please upload a valid cover image', 4000, 'red accent-2');
 	    $('#plCoverDone').fadeOut();
 	    $('#plCover').val('');
 	    $('.file-path').val('');
@@ -391,4 +422,68 @@ function validateFactory(){
 	return isValid;
 
 
+}
+
+function getList(data, baseDiv){
+
+	console.log("|| "+activePlID+" ||");
+
+	data = $.param(data);
+	
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		url: "../api/lists", 
+		data: data,
+		success: function(data) {
+			var list_count = data.results;
+
+			var list_body = '<div class="row">';
+			_.each(data, function(playlist, index){
+				if(_.isObject(playlist)){
+					var activeClass = '';
+					console.log(playlist.id);
+					console.log(activePlID);
+					if(playlist.id == activePlID){
+						activeClass = '__activeDraft';
+						activePlID = 0;
+					}
+
+					console.log(activeClass);
+
+					index++;
+
+					list_body += '<div data-plid="'+playlist.id+'" class="wrapper-card col s3">';
+					list_body += ' <div class="thumb-card col s12">';
+					list_body += '	<div id="'+activeClass+'" class="card">';
+			    	list_body += '		<div class="card-image waves-effect waves-block waves-light">';
+					list_body += '			<img class="" src="http://hemant/playawesome/assets/covers/'+playlist.cover+'" width="200px" height="120px">';
+			    	list_body += '		</div>';
+				    list_body += '		<div class="card-content text-small">';
+				    list_body += '  		<div class="center-align"><span class="card-title '+playlist.id+' grey-text text-darken-4 text-small font-125">'+playlist.title+'</span></div>';
+				    list_body += '  		<div class="center-align"><p><a href="'+playlist.link+'"><i class="material-icons top-align no-margin-right">perm_identity</i>'+playlist.link_text+'</a></p></div>';
+				    list_body += '		</div>';
+			  		list_body += '	</div>';
+					list_body += ' </div>';
+					list_body += ' <div class="plStation col s9" style="display:none;">';
+					list_body += ' </div>';
+					list_body += '</div>';
+
+					if(index%4==0 && index !== list_count){
+						list_body += '</div> <div class="row">'
+					}else if(index%4==0 && index === list_count){
+						list_body += '</div> <div class="row">'
+					}else if(index === list_count){
+						list_body += '</div';
+					}
+					$(baseDiv).html(list_body);
+
+					_.delay(function(){
+					    $('#__activeDraft').click();
+					}, 100);
+
+				}
+			});
+		}
+	});
 }

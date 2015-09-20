@@ -331,3 +331,93 @@ body{
 .d-none{
 	display: none !important;
 }
+
+#addPl{
+	bottom: 5%;
+    position: fixed;
+    right: 2%;
+}
+
+#cancelPL{
+	bottom: 5%;
+    position: fixed;
+    right: 2%;
+    display: none;
+}
+
+#addPlDiv{
+	display: none;
+}
+
+.search-img-box{
+	border-radius: 0% !important;
+	left: 0 !important;
+	width: 12% !important;
+	height: 80% !important;
+	margin-left: 5% !important;
+}
+
+.responseDiv{
+	margin-left: 11% !important;
+    margin-top: -2% !important;
+    width: 86% !important;
+}
+
+.searchResultItem{
+	padding-left: 20% !important;
+	cursor: pointer;
+}
+.searchResultItem:hover{
+	background-color: #e0f2f1;
+}
+
+.searchResultMore{
+	text-align: center;
+	cursor: pointer;
+}
+
+.searchResultMore:hover{
+	background-color: #e0f2f1;
+}
+
+
+.__inactiveStation{
+	display: none !important;
+}
+
+#factoryAddPlLi{
+	display: none;
+	margin-top: -5% !important;
+}
+
+#tagList{
+	border: none !important;
+}
+
+.tagMatch{
+	padding: 10px 0 !important;
+	text-align: center !important;
+}
+
+.plSaveFormDiv{
+	text-align: center !important;
+}
+
+.plFormRow{
+	margin-bottom: 0 !important;
+}
+
+.searchResultCollection{
+	margin-top: 1% !important;
+	margin-bottom: 0.5% !important;
+}
+
+.clearSearch{
+	position: absolute;
+    right: 2%;
+    cursor: pointer;
+}
+
+#stationPreviewClose{
+	margin-left: 5%;
+}

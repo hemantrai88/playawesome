@@ -9,7 +9,7 @@ class api extends CI_Controller {
 		$this->load->model('mdlAPI');
 	}
 
-	public function index()
+	public function searchYoutube()
 	{
 		set_include_path(get_include_path() . PATH_SEPARATOR . '/opt/lampp/htdocs/app/google-client/src');
 
@@ -25,12 +25,19 @@ class api extends CI_Controller {
 		  $resultList = array();
 		  $htmlBody = '';
 
+		  $count = $this->input->post('searchCount');
+
+		  $limit = $count*2;
+
+		  $max = 0;
+
+
 		  try {
 		    // Call the search.list method to retrieve results matching the specified
 		    // query term.
 		    $searchResponse = $youtube->search->listSearch('id,snippet', array(
-		      'q' => $this->input->get_post('query'),
-		      'maxResults' => $this->input->get_post('limit'),
+		      'q' => $this->input->post('searchFor'),
+		      'maxResults' => $limit,
 		    ));
 		    $videos = '';
 		    $channels = '';
@@ -38,10 +45,21 @@ class api extends CI_Controller {
 		    // Add each result to the appropriate list, and then display the lists of
 		    // matching videos, channels, and playlists.
 		    foreach ($searchResponse['items'] as $searchResult) {
+		    	if($max==$count){
+		    		echo json_encode($resultList);
+		    		exit;
+		    	}
 		    	switch ($searchResult['id']['kind']) {
 			        case 'youtube#video':
-			        	$resultList[] = $searchResult['id']['videoId'];
-			          	//echo "<br /><pre>"; print_r($searchResult); echo "</pre><br />";
+			        	$thumbs = array(
+			        		'default'=>$searchResult['snippet']->thumbnails['modelData']['default']['url'],
+			        		'medium'=>$searchResult['snippet']->thumbnails['modelData']['medium']['url'],
+			        		'high'=>$searchResult['snippet']->thumbnails['modelData']['high']['url']
+			        		);
+			        	$videoResult = array( 'id'=>$searchResult['id']['videoId'], 'snippet' => $searchResult['snippet'], 'thumbs' => $thumbs);
+
+			        	$resultList[] = $videoResult;
+			        	$max++;
 			          break;
 			      }
 		      

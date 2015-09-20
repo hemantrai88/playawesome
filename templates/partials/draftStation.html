@@ -3,8 +3,13 @@
           <div class="card">
             <div class="card-content">
               <div class="stationInfo row">
-                <div class="stationPlName col s9">
+                <div class="stationPlName col s5">
                   <div class="stationPlNameSpan">
+                    
+                  </div>
+                </div>
+                <div class="stationPlTags col s4">
+                  <div class="stationPlTagsDiv">
                     
                   </div>
                 </div>
@@ -12,16 +17,39 @@
                     <div class="stationPlCreatedStamp ds-ib stationStamp"></div>
                 </div>
               </div>
-              <div class="row stationPlTagsRow">
-                <div class="col s12 stationPlTagsDiv">
+              <div class="row">
+                <div class="col s12">
+                  <div class="input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input placeholder="Search for song" id="searchForSong" type="text" class="">
+                    <i id="clearSearch" class="material-icons right clearSearch">close</i>
+                  </div>
+                </div>
+                <div class="col s12 responseDiv">
+                  <div id="stationSearchResultsDiv">
+                  </div>
+                </div>
+              </div>
+
+                <!-- Modal Structure -->
+              <div id="stationPreviewModal" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <div class="video-container">
+                    <iframe id="stationPreviewIframe" src="" frameborder="0"></iframe>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" id="stationPreviewClose" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                  <a href="#!" id="stationPreviewAddToPl" class="modal-action modal-close waves-effect waves-green btn-flat ">Add to playlist</a>
                   
                 </div>
-                
               </div>
+
             </div>
             <div class="card-action">
               <a href="#">Save List</a>
               <a href="#">Save List and Publish</a>
+              <a href="#" id="stationEditCancel">Cancel</a>
             </div>
           </div>
         </div>
@@ -32,8 +60,7 @@
         var plID = $('body .__activeStation').attr('data-plid');
 
         var dataObj = {};
-        var tags = [];
-        var tagHTML = '';
+        var searchCount = 10;
 
         dataObj.plID = plID;
 
@@ -43,7 +70,10 @@
           url: "../api/getPlaylist", 
           data: dataObj,
           success: function(data) {
-            console.log(data);
+
+            var tags = [];
+            var tagHTML = '';
+
             var createdTS = data.plCreatedAt;
             var date_time = createdTS.split(' ');
             var dateTS = date_time[0];
@@ -84,14 +114,153 @@
             }
 
             _.each(tags, function(tag){
-              tagHTML += '<a href="#!" data-tag="'+tag+'" class="collection-item tagMatch">'+tag+'</a>';
+              tagHTML += '<div class="chip">'+tag+'</div>';
             });
             
+            $('.stationPlTagsDiv').html('');
             $('.stationPlTagsDiv').html(tagHTML);
 
 
           }
         });
 
+        $('body').on('keyup', '#searchForSong', function(key){
+
+          var searchResults = '';
+
+          if($('#searchForSong').val() == ''){
+            $('#stationSearchResultsDiv').html('');
+          }
+
+          if(key.which === 13){
+
+            var searchLoader = '<div class="progress col offset-s1 s11"><div class="indeterminate"></div></div>';
+
+            $('.responseDiv').removeClass('z-depth-1');
+            $('#stationSearchResultsDiv').html(searchLoader);
+            searchCount = 10;
+            searchYoutube();
+
+
+          }
+
+        });
+
+        $('body').on('click', '#stationEditCancel', function(){
+          $('.wrapper-card').removeClass('__activeStation');
+          $('.wrapper-card').removeClass('__inactiveStation');
+          $('.plStation').html('');
+          $('.plStation').hide();
+          $('.__activeWrapper').removeClass('s12');
+          $('.__activeWrapper').addClass('s3');
+          $('.__activeWrapper').addClass('wrapper-card');
+          $('.__activeWrapper').removeClass('__activeWrapper');
+          $('.__activethumb').removeClass('s3');
+          $('.__activethumb').addClass('s12');
+          $('.__activethumb').removeClass('__activethumb');
+
+          __global.stationBusy = false;
+        });
+
+        $('body').on('click', '.searchResultMore', function(){
+
+          if(searchCount == 10){
+            var searchLoader = '<div class="progress col s12"><div class="indeterminate"></div></div>';
+            $(this).html(searchLoader);
+            searchCount = searchCount+10;
+            searchYoutube();
+          }
+
+        });
+
+        $('body').on('click', '#clearSearch', function(){
+          $('#searchForSong').val('');   
+          $('#stationSearchResultsDiv').html('');
+          $('.responseDiv').removeClass('z-depth-1');
+          $('#searchForSong').focus();
+        });
+
+        $('body').on( 'click', '.searchResultItem', function(){
+          var vid = $(this).attr('data-vid');
+          var vidHREF = '//www.youtube.com/embed/'+vid+'?rel=0&autoplay=1';
+          $('#stationPreviewIframe').attr('src', vidHREF);
+          $('.modal.modal-fixed-footer').css({'height': '90%' });
+          $('.modal.modal-fixed-footer').css({'max-height': '90%' });
+          $('.modal.modal-fixed-footer').css({'top': '5%' });
+          $('.modal.modal-fixed-footer').css({'background-color': '#000' });
+          $('.modal-footer').css({'background-color': '#000' });
+          $('.modal').css({'width': '60%' });
+          $('.modal-footer a').css('background-color','#fff');
+
+          $('#stationPreviewModal').openModal({
+            dismissible: false, // Modal can be dismissed by clicking outside of the modal
+            opacity: 1, // Opacity of modal background
+            in_duration: 300, // Transition in duration
+            out_duration: 200, // Transition out duration
+            width: '100%',
+            height: '100%',
+            ready: function() { previewModalInit() }, // Callback for Modal open
+            complete: function() { destroyPreview(); } // Callback for Modal close
+          });
+        });
+
+        $('body').on('click', '#stationPreviewClose', function(){
+          $('#stationPreviewModal').closeModal();  
+        });
+
+        function previewModalInit(){
+
+        }
+
+        function destroyPreview(){
+          var vidHREF = '';
+          $('#stationPreviewIframe').attr('src', vidHREF);
+        }
+
+        function searchYoutube(){
+            var searchObj = {};
+
+            searchObj.searchFor = $('#searchForSong').val();
+            searchObj.searchCount = searchCount;
+
+            
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "../api/searchYoutube", 
+                data: searchObj,
+                success: function(data) {
+                  searchResults = '<ul class="collection searchResultCollection">';
+
+                  _.each(data, function(result){
+
+                    console.log(result);
+
+                    searchResults += '  <li class="collection-item avatar searchResultItem" data-vid="'+result.id+'">';
+                    searchResults += '    <img src="'+result.thumbs.default+'" alt="'+result.snippet.title+'" class="circle search-img-box">';
+                    searchResults += '    <span class="title">'+result.snippet.title+'</span>';
+                    searchResults += '    <p>'+result.snippet.description.substr(0,55)+'... </p>';
+                    searchResults += '  </li>';
+                  });
+
+                  if(searchCount==10){
+                    searchResults += '<li class="collection-item searchResultMore">';
+                    searchResults += '<div>Show more...</div>';
+                    searchResults += '</li>';
+                  }
+                  searchResults += '</ul>';
+                  $('.responseDiv').addClass('z-depth-1');
+                  $('#stationSearchResultsDiv').hide();
+                  $('#stationSearchResultsDiv').html(searchResults);
+                  $('#stationSearchResultsDiv').slideDown('slow');
+                  $('.modal-trigger').leanModal();
+
+                  //www.youtube.com/embed/Q8TXgCzxEnw?rel=0
+                }
+
+            });
+
+        }
 
       </script> 
